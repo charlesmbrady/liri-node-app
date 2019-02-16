@@ -6,7 +6,7 @@
 **Overview:**
 
 This app lets you do 4 things:
-1. search for songnames on Spotify - (using the Spotify api)
+1. search for song info on Spotify - (using the Spotify api)
     - format `spotify-this-song <songname>`
     - Ex. Command 
         - `node liri.js spotify-this-song I want it that way`
