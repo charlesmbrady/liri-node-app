@@ -1,27 +1,27 @@
-/**** Dependencies ******/
+/*______________________Dependencies / variables_____________________________*/
+    require("dotenv").config();
+    var Spotify = require('node-spotify-api');
+    var keys = require("./keys.js");
+    var axios = require("axios");
+    var fs = require("fs");
+    var moment = require("moment");
 
-require("dotenv").config();
-var Spotify = require('node-spotify-api');
-var keys = require("./keys.js");
-var axios = require("axios");
-var fs = require("fs");
+    var spotify = new Spotify(keys.spotify);
+    var command = process.argv[2];
+/*_________________________________________________________________________*/
 
-/********************** */
-var spotify = new Spotify(keys.spotify);
-var command = process.argv[2];
-/////////////////handle multiword input/////////////
-var arguments = process.argv;
-var inputWords = [];
-var input = "";
+///////////////// Handle Multiword Input/////////////
+    var arguments = process.argv;
+    var inputWords = [];
+    var input = "";
 
-for (var i = 3; i < arguments.length; i++) {
-    inputWords.push(arguments[i]);
-}
-input = inputWords.join(" ");
+    for (var i = 3; i < arguments.length; i++) {
+        inputWords.push(arguments[i]);
+    }
+    input = inputWords.join(" ");
+/*_________________________________________________________________________*/
 
-/*________________________________________________________*/
-
-
+//Switch statement for the different commands
 switch (command) {
     case "concert-this":
         concertThis(input);
@@ -43,14 +43,16 @@ switch (command) {
 
 
 //__________________________    Functions   ____________________________//
-
+//TODO:limiting API responses
 function concertThis(artist) {
     console.log("You searched for artist: " + artist);
-    
+
+    /*_____________________ Bands In Town API call___________________*/
     var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
     axios.get(queryUrl).then(function (response) {
         var events = response.data;
 
+    //loop through each event in the response and log the Artist Name, Venue Name, and Venue City
         events.forEach(function (event) {
             console.log("****************************************************************************************");
             console.log("You searched for artist: " + artist);
@@ -59,8 +61,9 @@ function concertThis(artist) {
             console.log("________________________________________");
             console.log("Venue Location: " + event.venue.city);
             console.log("________________________________________");
-            //TODO: reformat datetime as "MM/DD/YYYY" with Moment.js
-            console.log("Date: " + event.datetime);
+
+            var convertedDate = moment(event.datetime, "YYYY-MM-DDTHH:mm:ss")
+            console.log("Date: " + convertedDate.format("MMM do hh:mm a"));
             console.log("****************************************************************************************");
         });
     });
@@ -103,6 +106,15 @@ function movieThis(movie) {
 }
 
 function spotifyThisSong(song) {
+
+    /*if(!song){
+        spotify.request("https://api.spotify.com/v1/search/q=the+sign%20artist:ace+of+base").then(function (response) {
+            
+            console.log(response);
+            //console.log(data.tracks); //log that song search result
+            return 0;
+        });
+    }*/
     console.log("________________________________________");
     console.log("You searched for song: " + song);
     console.log("________________________________________");
@@ -141,5 +153,36 @@ function spotifyThisSong(song) {
 
 function doWhatItSays() {
     console.log("You said to do what it says...");
+    fs.readFile("random.txt", "utf8", function (error, data) {
+        if (error) {
+            console.log("There was an error: " + error);
+            return 0;
+        }
+
+        var inputs = data.split(",")
+        command = inputs[0];
+        input = inputs[1];
+
+        switch (command) {
+            case "concert-this":
+                concertThis(input);
+                break;
+            case "spotify-this-song":
+                spotifyThisSong(input);
+                break;
+            case "movie-this":
+                movieThis(input);
+                break;
+            case "do-what-it-says":
+                doWhatItSays();
+                break;
+            default:
+                console.log("Please enter a valid command...");
+                break;
+        }
+
+
+    })
     //TODO: make this work
+
 }
