@@ -81,21 +81,21 @@ function movieThis(movie) {
     axios.get(queryUrl).then(function (response) {
         console.log("****************************************************************************************");
         console.log("You searched for movie: " + movie);
-        console.log("________________________________________");
+        console.log("\r\n");
         console.log("Title: " + response.data.Title);
-        console.log("________________________________________");
+        console.log("\r\n");
         console.log("Release Year: " + response.data.Year);
-        console.log("________________________________________");
+        console.log("\r\n");    
         console.log("IMDB Rating: " + response.data.imdbRating);
-        console.log("________________________________________");
+        console.log("\r\n");
         console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
-        console.log("________________________________________");
+        console.log("\r\n");
         console.log("Country where produced: " + response.data.Country);
-        console.log("________________________________________");
+        console.log("\r\n");
         console.log("Language: " + response.data.Language);
-        console.log("________________________________________");
+        console.log("\r\n");
         console.log("Plot: " + response.data.Plot);
-        console.log("________________________________________");
+        console.log("\r\n");
         console.log("Actors: " + response.data.Actors);
         console.log("****************************************************************************************");
 
@@ -128,14 +128,17 @@ function spotifyThisSong(song) {
         results.forEach(function (track, i) {
             console.log("Track " + (i + 1));
             var artists = track.artists;
+            console.log("\r\n");
 
             console.log("Artist(s):");
             artists.forEach(function (artist) {
                 console.log("--" + artist.name);
             });
+            console.log("\r\n");
 
             var trackName = track.name
             console.log("Track name: " + trackName);
+            console.log("\r\n");
 
             var trackAlbum = track.album.name;
             console.log("Album: " + trackAlbum);
