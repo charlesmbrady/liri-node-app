@@ -6,15 +6,15 @@
 **Overview:**
 
 This app lets you do 4 things:
-1. search for song info on Spotify - (using the Spotify api)
+1. search for *song info* on Spotify - (using the Spotify api)
     - format `spotify-this-song <songname>`
     - Ex. Command 
         - `node liri.js spotify-this-song I want it that way`
-2. search for concerts based on band/artist name - (using the BandsInTown api)
+2. search for *concerts* based on band/artist name - (using the BandsInTown api)
     - format `concert-this <artist/band name>`
     - Ex. Command 
         - `node liri.js concert-this mandolin orange`
-3. search for movie info - (using the omdb api)
+3. search for *movie info* - (using the omdb api)
     - format `movie-this <movie name>`
     - Ex. Command 
         - `node liri.js movie-this the avengers`
