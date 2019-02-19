@@ -43,7 +43,7 @@ switch (command) {
 
 
 //__________________________    Functions   ____________________________//
-//TODO:limiting API responses
+
 function concertThis(artist) {
     //first log the command to the log.txt file
     fs.appendFile("log.txt", "**********************************************************" + "\r\n\n" + process.argv.slice(2).join(" ") + ", " + '\r\n\n', function (err) {
