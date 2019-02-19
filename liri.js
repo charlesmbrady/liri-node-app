@@ -126,7 +126,7 @@ function movieThis(movie) {
         });
     }).catch(function (err) {
         console.log("There was an error: " + err);
-    }
+    });
 }
 
 function spotifyThisSong(song) {
@@ -137,15 +137,10 @@ function spotifyThisSong(song) {
         }
     });
 
-    /*if(!song){
-        spotify.request("https://api.spotify.com/v1/search/q=the+sign%20artist:ace+of+base").then(function (response) {
-            
-            console.log(response);
-            //console.log(data.tracks); //log that song search result
-            return 0;
-        });
-    }*/
-    //TODO: make this default request work
+    if(!song){
+        song = "The Sign Ace of Base";
+    }
+    
     console.log("________________________________________");
     console.log("You searched for song: " + song);
     console.log("________________________________________");
