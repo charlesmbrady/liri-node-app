@@ -1,24 +1,24 @@
 /*______________________Dependencies / variables_____________________________*/
-    require("dotenv").config();
-    var Spotify = require('node-spotify-api');
-    var keys = require("./keys.js");
-    var axios = require("axios");
-    var fs = require("fs");
-    var moment = require("moment");
+require("dotenv").config();
+var Spotify = require('node-spotify-api');
+var keys = require("./keys.js");
+var axios = require("axios");
+var fs = require("fs");
+var moment = require("moment");
 
-    var spotify = new Spotify(keys.spotify);
-    var command = process.argv[2];
+var spotify = new Spotify(keys.spotify);
+var command = process.argv[2];
 /*_________________________________________________________________________*/
 
 ///////////////// Handle Multiword Input/////////////
-    var arguments = process.argv;
-    var inputWords = [];
-    var input = "";
+var arguments = process.argv;
+var inputWords = [];
+var input = "";
 
-    for (var i = 3; i < arguments.length; i++) {
-        inputWords.push(arguments[i]);
-    }
-    input = inputWords.join(" ");
+for (var i = 3; i < arguments.length; i++) {
+    inputWords.push(arguments[i]);
+}
+input = inputWords.join(" ");
 /*_________________________________________________________________________*/
 
 //Switch statement for the different commands
@@ -46,8 +46,8 @@ switch (command) {
 //TODO:limiting API responses
 function concertThis(artist) {
     //first log the command to the log.txt file
-    fs.appendFile("log.txt", "**********************************************************" + "\r\n\n" + process.argv.slice(2).join(" ") + ", "  + '\r\n\n', function(err){
-        if(err){
+    fs.appendFile("log.txt", "**********************************************************" + "\r\n\n" + process.argv.slice(2).join(" ") + ", " + '\r\n\n', function (err) {
+        if (err) {
             console.log("there was an error");
         }
     });
@@ -58,7 +58,7 @@ function concertThis(artist) {
     axios.get(queryUrl).then(function (response) {
         var events = response.data;
 
-    //loop through each event in the response and log the Artist Name, Venue Name, and Venue City
+        //loop through each event in the response and log the Artist Name, Venue Name, and Venue City
         events.forEach(function (event) {
             console.log("****************************************************************************************");
             console.log("Artist: " + artist);
@@ -73,8 +73,8 @@ function concertThis(artist) {
             console.log("****************************************************************************************");
 
             //log each result to log.txt
-            fs.appendFile("log.txt", "Artist: " + artist + '\r\n\n' + "Venue: " + event.venue.name + '\r\n\n' + "Venue Location: " + event.venue.city + '\r\n\n' + "Date: " + convertedDate.format("MMM do hh:mm a") + '\r\n\n' + "_____________________________________________________________________________" + '\r\n\n', function(err){
-                if(err){
+            fs.appendFile("log.txt", "Artist: " + artist + '\r\n\n' + "Venue: " + event.venue.name + '\r\n\n' + "Venue Location: " + event.venue.city + '\r\n\n' + "Date: " + convertedDate.format("MMM do hh:mm a") + '\r\n\n' + "_____________________________________________________________________________" + '\r\n\n', function (err) {
+                if (err) {
                     console.log("there was an error");
                 }
             });
@@ -84,8 +84,8 @@ function concertThis(artist) {
 
 function movieThis(movie) {
     //first log the command to the log.txt file
-    fs.appendFile("log.txt", "****************************************************************************************" + '\r\n\n' + process.argv.slice(2).join(" ") + ", " + '\r\n\n', function(err){
-        if(err){
+    fs.appendFile("log.txt", "****************************************************************************************" + '\r\n\n' + process.argv.slice(2).join(" ") + ", " + '\r\n\n', function (err) {
+        if (err) {
             console.log("there was an error");
         }
     });
@@ -104,7 +104,7 @@ function movieThis(movie) {
         console.log("Title: " + response.data.Title);
         console.log("\r\n");
         console.log("Release Year: " + response.data.Year);
-        console.log("\r\n");    
+        console.log("\r\n");
         console.log("IMDB Rating: " + response.data.imdbRating);
         console.log("\r\n");
         console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
@@ -119,21 +119,20 @@ function movieThis(movie) {
         console.log("****************************************************************************************");
 
         //log the search result to log.txt
-        fs.appendFile("log.txt", "You searched for movie: " + movie + "\r\n" + "Title: " + response.data.Title + "\r\n" + "Release Year: " + response.data.Year + "\r\n\n" + "IMDB Rating: " + response.data.imdbRating + "\r\n\n" + "Rotten Tomatoes Rating: " + response.data.Ratings[1].Value + "\r\n\n" + "Country where produced: " + response.data.Country + "\r\n\n" + "Language: " + response.data.Language + "\r\n\n" + "Plot: " + response.data.Plot + "\r\n\n" + "Actors: " + response.data.Actors + "\r\n\n", function(err){
-            if(err){
+        fs.appendFile("log.txt", "You searched for movie: " + movie + "\r\n" + "Title: " + response.data.Title + "\r\n" + "Release Year: " + response.data.Year + "\r\n\n" + "IMDB Rating: " + response.data.imdbRating + "\r\n\n" + "Rotten Tomatoes Rating: " + response.data.Ratings[1].Value + "\r\n\n" + "Country where produced: " + response.data.Country + "\r\n\n" + "Language: " + response.data.Language + "\r\n\n" + "Plot: " + response.data.Plot + "\r\n\n" + "Actors: " + response.data.Actors + "\r\n\n", function (err) {
+            if (err) {
                 console.log("there was an error");
             }
         });
     }).catch(function (err) {
         console.log("There was an error: " + err);
-    });//TODO: why does this not work?
-
+    }
 }
 
 function spotifyThisSong(song) {
     //first log the command to the log.txt file
-    fs.appendFile("log.txt", "****************************************************************************************" + '\r\n\n' + process.argv.slice(2).join(" ") + ", "  + '\r\n\n', function(err){
-        if(err){
+    fs.appendFile("log.txt", "****************************************************************************************" + '\r\n\n' + process.argv.slice(2).join(" ") + ", " + '\r\n\n', function (err) {
+        if (err) {
             console.log("there was an error");
         }
     });
@@ -187,12 +186,12 @@ function spotifyThisSong(song) {
             console.log("__________________________________");
 
             //append results to log.txt
-            fs.appendFile("log.txt", "Track " + (i + 1) + "\r\n\n" + "Artist(s): " + temp + "\r\n\n" + "Track name: " + trackName + "\r\n\n" + "Album: " + trackAlbum + "\r\n\n" + "Preview URL: " + previewURL + "\r\n\n" + "_______________________________________________________" + "\r\n\n" , function(err){
-                if(err){
+            fs.appendFile("log.txt", "Track " + (i + 1) + "\r\n\n" + "Artist(s): " + temp + "\r\n\n" + "Track name: " + trackName + "\r\n\n" + "Album: " + trackAlbum + "\r\n\n" + "Preview URL: " + previewURL + "\r\n\n" + "_______________________________________________________" + "\r\n\n", function (err) {
+                if (err) {
                     console.log("there was an error");
                 }
             });
-            
+
         });
     });
 }
