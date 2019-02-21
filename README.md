@@ -8,6 +8,7 @@ YouTube: https://www.youtube.com/watch?v=vl4foqJEThM&feature=youtu.be
 
 **Overview:**
 To run on your machine, clone the repo, and install the node modules using "npm install"
+
 This app lets you do 4 things:
 
 1. search for __*song info*__ on Spotify - (using the Spotify api)
